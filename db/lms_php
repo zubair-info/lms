@@ -1,0 +1,201 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Mar 15, 2022 at 02:42 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.4.27
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `lms_php`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `books`
+--
+
+CREATE TABLE `books` (
+  `id` int(11) NOT NULL,
+  `book_name` varchar(70) NOT NULL,
+  `image_location` varchar(30) NOT NULL,
+  `book_author_name` varchar(50) NOT NULL,
+  `book_publication_name` varchar(50) NOT NULL,
+  `book_purchase_date` varchar(50) NOT NULL,
+  `book_price` varchar(10) NOT NULL,
+  `book_qty` int(5) NOT NULL,
+  `available_qty` int(5) NOT NULL,
+  `libraian_username` varchar(50) NOT NULL,
+  `active_sts` int(2) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `books`
+--
+
+INSERT INTO `books` (`id`, `book_name`, `image_location`, `book_author_name`, `book_publication_name`, `book_purchase_date`, `book_price`, `book_qty`, `available_qty`, `libraian_username`, `active_sts`) VALUES
+(1, 'Pather Panchali', 'uploads/book/1.jpg', 'Bibhutibhushan Bandyopadhyay', 'Calcutta periodical', '2022-03-08', '120', 5, 5, 'Zubair Ahmed', 1),
+(2, 'Programming PHP', 'uploads/book/2.jpg', 'Rasmus Lerdorf', 'powered by PHP', '2022-03-03', '250', 10, 9, 'Milon Hasssan', 1),
+(3, 'PHP and MySQL ', 'uploads/book/3.jpg', ' Larry Ullman ', 'Joshua Dawson', '2022-03-05', '130', 15, 15, 'Abdullah', 1),
+(4, 'PHP, MySQL, & JavaScript', 'uploads/book/4.jpg', 'Richard BLUM', 'Cathleen Nichols', '2022-03-01', '200', 5, 5, 'Nayem Hassan', 1),
+(5, 'The Book of Names', 'uploads/book/5.jpg', 'Goodreads Author', 'Joshua Dawson', '2022-03-10', '500', 20, 19, 'Sakil', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `issue_books`
+--
+
+CREATE TABLE `issue_books` (
+  `id` int(11) NOT NULL,
+  `student_id` int(5) NOT NULL,
+  `book_id` int(5) NOT NULL,
+  `book_issue_date` varchar(50) NOT NULL,
+  `book_issue_return_date` varchar(20) NOT NULL,
+  `book_return_date` varchar(20) NOT NULL,
+  `datetime` timestamp NOT NULL DEFAULT current_timestamp(),
+  `approve_sts` int(2) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `issue_books`
+--
+
+INSERT INTO `issue_books` (`id`, `student_id`, `book_id`, `book_issue_date`, `book_issue_return_date`, `book_return_date`, `datetime`, `approve_sts`) VALUES
+(1, 9, 5, '12-Mar-2022', '2022-03-14', '', '2022-03-12 08:34:53', 1),
+(2, 9, 2, '12-Mar-2022', '2022-03-30', '', '2022-03-12 08:36:12', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `libraians`
+--
+
+CREATE TABLE `libraians` (
+  `id` int(11) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `email` varchar(60) NOT NULL,
+  `user_name` varchar(50) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `datetime` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `libraians`
+--
+
+INSERT INTO `libraians` (`id`, `first_name`, `last_name`, `email`, `user_name`, `password`, `datetime`) VALUES
+(7, 'admin', 'admin', 'admin@gmail.com', 'admin', '10b8e822d03fb4fd946188e852a4c3e2', '2022-03-05 11:06:27'),
+(8, 'admin', 'admin', 'admin@gmail.com', 'admin', '10b8e822d03fb4fd946188e852a4c3e2', '2022-03-05 11:06:32'),
+(9, 'zubair', 'ahmed', 'zu@gmail.com', '', '10b8e822d03fb4fd946188e852a4c3e2', '2022-03-05 11:12:59'),
+(10, 'zubair', 'ahmed', 'zu@gmail.com', '', '10b8e822d03fb4fd946188e852a4c3e2', '2022-03-05 11:13:04');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `students`
+--
+
+CREATE TABLE `students` (
+  `id` int(11) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `email` varchar(60) NOT NULL,
+  `roll` int(6) NOT NULL,
+  `reg` int(6) NOT NULL,
+  `user_name` varchar(40) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `phone` int(11) NOT NULL,
+  `image_location` varchar(50) NOT NULL,
+  `sts` int(2) NOT NULL DEFAULT 0,
+  `datetime` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `students`
+--
+
+INSERT INTO `students` (`id`, `first_name`, `last_name`, `email`, `roll`, `reg`, `user_name`, `password`, `phone`, `image_location`, `sts`, `datetime`) VALUES
+(1, 'Sydney', 'Taylor', 'wufiqan@mailinator.com', 142011, 113231, 'pyjogunoqi', '$2y$10$uDQ2yUeJ1dt4mbbm9BKUbeiFFH71Sc0yWeYJ/9pK.mq2ZnCKtGmAi', 1714350207, '', 1, '2022-03-07 19:23:57'),
+(2, 'Odessa', 'Juarez', 'zusos@mailinator.com', 142012, 113232, 'jidori', '$2y$10$CYlNLpq5Bur/N9mZVj5cM.VMRTpYh4tITe9Xs99/NeKEJH01oBrYm', 1921797899, '', 0, '2022-03-07 19:21:27'),
+(3, 'Yoshio', 'Mcmahon', 'qagopux@mailinator.com', 10, 98, 'xavetiro', '$2y$10$X6VCW/qPCsrky7Om1sHT5eq3VtUO//ZtBDrpRSh1WZdZdDnWQ/ADa', 1850504451, '', 1, '2022-03-07 19:24:01'),
+(4, 'Tanya', 'Harrison', 'hixos@mailinator.com', 33, 89, 'mebij', '$2y$10$h41mrj6ok.6OQ6VYd24VhO/Br66FkQqV43pjhU6snE2iA2QIOsTam', 1714350204, '', 0, '2022-03-07 19:22:09'),
+(5, 'Craig', 'Kim', 'tyte@mailinator.com', 46, 25, 'rynyry', '$2y$10$Yjf39PBA7vf/zwYFw78A3uErvQ6zxcOWrW/Z8YbFa.MrENGIEPSXe', 1921797988, '', 1, '2022-03-07 19:24:00'),
+(6, 'Marsden', 'Haley', 'dyxo@mailinator.com', 73, 58, 'fupopiryx', '$2y$10$WNWH/7vZauZsuoU6aZzeDeSJ3BXd3G8Hnk8abV6AzuvGGRgsPmya2', 1714350205, '', 0, '2022-03-07 19:22:29'),
+(7, 'Raya', 'Cannon', 'nihuw@mailinator.com', 100, 24, 'rusivi', '$2y$10$K6Oy6zi.XnQBmcXvaw6XFuYKsv/HrSgwOsA6JnuL9/l8E4IBlRKfi', 1921797988, '', 1, '2022-03-07 19:24:02'),
+(8, 'Acton', 'Ford', 'doryvyboqy@mailinator.com', 9, 58, 'hitacuno', '$2y$10$XDmSxcBvBeeXIJcKrs4beu4i62f8Dkq2PE1Y21ow2e2F5H4RI5FVO', 1850504451, '', 1, '2022-03-07 19:23:59'),
+(9, 'student', 'name', 'student@gmail.com', 1, 1, 'student_01', '$2y$10$MMbOkwx9Hi/L8.WVTWsCbO4EWoC1AJTvHL9EBgR/6pIMLsmW856Y6', 1921797988, '', 1, '2022-03-12 07:56:42');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `books`
+--
+ALTER TABLE `books`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `issue_books`
+--
+ALTER TABLE `issue_books`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `libraians`
+--
+ALTER TABLE `libraians`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `students`
+--
+ALTER TABLE `students`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `books`
+--
+ALTER TABLE `books`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `issue_books`
+--
+ALTER TABLE `issue_books`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `libraians`
+--
+ALTER TABLE `libraians`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `students`
+--
+ALTER TABLE `students`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
